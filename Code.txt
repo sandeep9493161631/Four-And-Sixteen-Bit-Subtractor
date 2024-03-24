@@ -1,0 +1,77 @@
+Code for Four Bit Full Subtractor:-
+-----------------------------------
+
+module FourBitFullSubtractor(
+    input [3:0] a,b,
+    input cin,
+    output [3:0] d,
+    output bor
+    );
+    FullSubtractor f1 (.a(a[0]),.b(b[0]),.cin(cin),.d(d[0]),.bor(w1));
+    FullSubtractor f2 (.a(a[1]),.b(b[1]),.cin(w1),.d(d[1]),.bor(w2));
+    FullSubtractor f3 (.a(a[2]),.b(b[2]),.cin(w2),.d(d[2]),.bor(w3));
+    FullSubtractor f4 (.a(a[3]),.b(b[3]),.cin(w3),.d(d[3]),.bor(bor));
+    
+endmodule
+
+Test Bench:-
+-------------
+module FourBitFullSubtractor_tb;
+reg [3:0] a,b;
+reg cin;
+wire [3:0] d;
+wire bor;
+FourBitFullSubtractor uut (.a(a),.b(b),.cin(cin),.d(d),.bor(bor));
+initial
+    begin
+        a=4'b0000;b=4'b1111;cin=1;#100;
+        a=4'b0001;b=4'b1110;cin=1;#100;
+        a=4'b0010;b=4'b1101;cin=1;#100;
+        a=4'b0011;b=4'b1100;cin=1;#100;
+        a=4'b0100;b=4'b1110;cin=1;#100;
+        a=4'b0101;b=4'b1011;cin=1;#100;
+        a=4'b0110;b=4'b1010;cin=1;#100;
+        a=4'b0111;b=4'b1001;cin=1;#100;
+        a=4'b1000;b=4'b1000;cin=1;#100;
+        a=4'b1001;b=4'b0111;cin=1;#100;
+        a=4'b1010;b=4'b0110;cin=1;#100;
+        a=4'b1011;b=4'b0101;cin=1;#100;
+        a=4'b1100;b=4'b0100;cin=1;#100;
+        a=4'b1101;b=4'b0011;cin=1;#100;
+        a=4'b1110;b=4'b0010;cin=1;#100;
+        a=4'b1111;b=4'b0000;cin=1;#100;
+        
+        
+    end
+endmodule
+
+Code For Sixteen Bit Full Subtractor:-
+---------------------------------------
+module SixteenBitFullSubtractor(
+    input [15:0] a,b,
+    input cin,
+    output [15:0] d,
+    output bor
+    );
+    FourBitFullSubtractor f5 (.a(a[3:0]),.b(b[3:0]),.cin(cin),.d(d[3:0]),.bor(w1));
+    FourBitFullSubtractor f6 (.a(a[7:4]),.b(b[7:4]),.cin(w1),.d(d[7:4]),.bor(w2));
+    FourBitFullSubtractor f7 (.a(a[11:8]),.b(b[11:8]),.cin(w2),.d(d[11:8]),.bor(w3));
+    FourBitFullSubtractor f8 (.a(a[15:12]),.b(b[15:12]),.cin(w3),.d(d[15:12]),.bor(bor));
+    
+endmodule
+
+Test Bench:-
+------------
+module SixteenBitFullSubtractor_tb;
+reg [15:0] a,b;
+reg cin;
+wire [15:0] d;
+wire bor;
+SixteenBitFullSubtractor uut (.a(a),.b(b),.cin(cin),.d(d),.bor(bor));
+initial
+    begin
+        a=16'b000101011011001;
+        b=16'b011001100110011;
+        cin=1;
+    end
+endmodule
